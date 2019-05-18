@@ -3,8 +3,7 @@ class HomeController < ApplicationController
 
   def authenticate
     authenticate_or_request_with_http_basic do |username, password|
-      user = User.where(name:username).first
-      user.authenticate(password) if user
+      User.find_by(name: username).try(:authenticate, password)
     end
   end
 
